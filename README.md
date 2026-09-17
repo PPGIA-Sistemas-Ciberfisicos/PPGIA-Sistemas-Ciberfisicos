@@ -21,7 +21,7 @@ O **Laboratório de Sistemas Ciberfísicos** (vinculado ao PPGIA) desenvolve sol
 Assim que o seu artigo for **aceito/publicado** e o código-fonte for liberado publicamente, siga estes passos simples para adicionar o seu projeto à vitrine oficial do laboratório:
 
 ### 1️⃣ Adicionar as Mídias do Projeto
-1. Na raiz deste repositório, acesse a pasta **`projects-assets/`**.
+1. Na raiz deste repositório, acesse a pasta **`project-assets/`**.
 2. Crie uma nova subpasta com um nome curto e sem espaços para o seu projeto (ex: `cidades-inteligentes-iot`).
 3. Cole dentro dessa pasta as imagens de destaque, gráficos de resultados ou vídeos do projeto.
 
@@ -34,16 +34,53 @@ Assim que o seu artigo for **aceito/publicado** e o código-fonte for liberado p
     "id": "nome-curto-do-projeto",
     "title": "Título Completo do Artigo Publicado",
     "category": "Cidades Inteligentes", 
-    "partner": "Nome da Empresa Parceira",
-    "partner_url": "[https://site-da-empresa.com](https://site-da-empresa.com)",
+    "partner": {
+      "name": "Nome da Empresa Parceira",
+      "url": "https://site-da-empresa.com",
+      "logo": "./partner-logos/empresa.svg"
+    },
     "media": [
       {
         "type": "image",
-        "url": "./projects-assets/nome-curto-do-projeto/banner.jpg"
+        "url": "./project-assets/nome-curto-do-projeto/banner.jpg"
       }
     ],
     "description": "Breve resumo do projeto, explicando a arquitetura desenvolvida e os principais resultados obtidos.",
-    "paper_url": "[https://doi.org/10.xxxx/xxxxx](https://doi.org/10.xxxx/xxxxx)",
-    "repo_url": "[https://github.com/PPGIA-Sistemas-Ciberfisicos/nome-do-repositorio-do-codigo](https://github.com/PPGIA-Sistemas-Ciberfisicos/nome-do-repositorio-do-codigo)",
+    "paper_url": "https://doi.org/10.xxxx/xxxxx",
+    "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/nome-do-repositorio-do-codigo",
     "bibtex": "@inproceedings{seuSobrenome2026titulo,\n  author={Sobrenome, Nome and Orientador, Nome},\n  title={Título do Artigo},\n  booktitle={Nome da Conferência ou Periódico},\n  year={2026}\n}"
   }
+```
+
+### Projetos sem empresa parceira
+
+O campo `partner` é opcional. Para projetos acadêmicos individuais, remova esse campo ou use `"partner": null` no `data.json`. A faixa de parceria não será exibida: o card começa diretamente pela mídia, mantendo a mesma borda vinho, título, descrição, links e citação dos demais projetos. Não é necessário informar uma empresa fictícia ou usar um rótulo “sem parceria”.
+
+Quando houver parceria, informe `partner.name`. A logo (`partner.logo`) e o site (`partner.url`) também são opcionais: sem logo, aparece o nome da empresa; sem URL, o link não é exibido.
+
+### 3️⃣ Trocar o banner por um vídeo
+
+O primeiro item de `media` define o banner do projeto. Para substituir a imagem por um vídeo, adicione o arquivo à pasta do projeto e altere esse item no `data.json`:
+
+```json
+"media": [
+  {
+    "type": "video",
+    "url": "./project-assets/mobile-phone-mining/demo.mp4"
+  }
+]
+```
+
+Arquivos MP4, WebM e Ogg são exibidos com controles de reprodução, sem reprodução automática. Para um vídeo hospedado no YouTube ou Vimeo, use `type: "video"` com a URL de incorporação (embed) fornecida pela plataforma, em vez do link comum da página.
+
+Para voltar à imagem, use `type: "image"` e o caminho `./project-assets/mobile-phone-mining/flowchart.png`.
+
+## Portal no GitHub Pages
+
+A página principal é `index.html`, com identidade visual em vinho, branco e grafite. Os projetos são carregados do `data.json`; as logos e mídias permanecem nas pastas locais do repositório.
+
+O portal utiliza apenas HTML, CSS e JavaScript locais: não exige Jekyll, instalação de pacotes ou compilação. Publique a raiz do repositório no GitHub Pages, incluindo `index.html`, `data.json`, `assets/`, `laboratory.png`, `partner-logos/` e `project-assets/`.
+
+Para visualizar localmente, execute `python3 -m http.server 8000` na raiz do repositório e abra `http://localhost:8000/`. O servidor é necessário para o carregamento do `data.json`.
+
+Os estilos estão em `assets/css/moderno.css` e a renderização dos projetos em `assets/js/moderno.js`. Os cards são verticais, com a imagem acima do texto, organizados em duas colunas no desktop e uma no celular. Imagens, vídeos, links de parceiros e citações são configurados pelo modelo acima.

@@ -2,194 +2,36 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Laboratório de Sistemas Ciberfísicos — PPGIA PUC-PR</title>
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ciência conectada à indústria. Explore os projetos, publicações e parcerias do Laboratório de Sistemas Ciberfísicos do PPGIA PUC-PR.">
+  <meta name="theme-color" content="#781d32">
+  <title>Laboratório de Sistemas Ciberfísicos — PPGIA / PUC-PR</title>
+  <link rel="icon" href="./laboratory.png" type="image/png">
+  <link rel="stylesheet" href="./assets/css/moderno.css">
+  <script src="./assets/js/moderno.js" defer></script>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased font-sans selection:bg-blue-600 selection:text-white">
-
-  <!-- Hero Section com Destaque Máximo -->
-  <header class="relative bg-gradient-to-r from-slate-950 via-blue-950 to-slate-950 text-white py-16 px-6 border-b border-slate-800 overflow-hidden shadow-2xl">
-    <!-- Elementos visuais de fundo tecnológicos -->
-    <div class="absolute -top-24 -left-24 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
-
-    <div class="max-w-5xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-      
-      <!-- Lado Esquerdo: Logo e Título -->
-      <div class="flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
-        <!-- Logo Circular -->
-        <div class="w-36 h-36 bg-gradient-to-tr from-blue-600/30 to-white/10 border-2 border-blue-400/40 rounded-full flex items-center justify-center p-1.5 shadow-xl shadow-blue-950/50 overflow-hidden shrink-0">
-          <img src="./laboratory.png" alt="Logo Laboratório" class="w-full h-full object-cover rounded-full">
-        </div>
-        <div>
-          <!-- Texto fluido sem badge -->
-          <p class="text-xs sm:text-sm font-semibold tracking-wide text-blue-400 uppercase mb-1">
-            PUC-PR • PPGIA
-          </p>
-          <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-white leading-tight">
-            Laboratório de Sistemas Ciberfísicos
-          </h1>
-          <p class="text-xs sm:text-sm text-slate-400 font-medium mt-1">
-            Inteligência Artificial, Robótica e Visão Computacional
-          </p>
-        </div>
-      </div>
-
-      <!-- Lado Direito: Ações / Links Oficiais -->
-      <div class="flex flex-wrap items-center justify-center gap-3 shrink-0">
-        <!-- Link oficial do CNPq -->
-        <a href="http://dgp.cnpq.br/dgp/espelhogrupo/23527" target="_blank" class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition shadow-lg shadow-blue-600/30 border border-blue-400/30 flex items-center gap-2">
-          <i class="fa-solid fa-university"></i> Grupo CNPq (DGP)
-        </a>
-        <!-- Link do GitHub -->
-        <a href="https://github.com/PPGIA-Sistemas-Ciberfisicos" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition border border-slate-700/80 flex items-center gap-2 backdrop-blur-md">
-          <i class="fa-brands fa-github text-sm"></i> GitHub da Org
-        </a>
-      </div>
-
+<body>
+  <a class="skip-link" href="#projetos">Pular para os projetos</a>
+  <header class="site-header">
+    <div class="header-content wrap">
+    <div class="brand"><img src="./laboratory.png" alt="Logo do laboratório" width="112" height="112"><div><h1>Laboratório de Sistemas Ciberfísicos</h1><p>PPGIA / PUC-PR</p></div></div>
+    <a class="button button-wine" href="http://dgp.cnpq.br/dgp/espelhogrupo/23527" target="_blank" rel="noopener noreferrer">Grupo no CNPq <span aria-hidden="true">↗</span></a>
     </div>
   </header>
-
-  <!-- Container Principal -->
-  <main class="max-w-5xl mx-auto px-6 py-12">
-    
-    <div class="mb-8 flex items-center justify-between border-b border-slate-200 pb-4">
+  <main>
+    <section id="projetos" class="portfolio wrap" aria-label="Projetos de pesquisa">
+      <div id="projects" class="project-grid" aria-busy="true"><p class="state" role="status">Carregando projetos…</p></div>
+      <noscript><p class="state">Ative o JavaScript para visualizar os projetos ou <a href="./data.json">consulte os dados do portfólio</a>.</p></noscript>
+    </section>
+    <section id="laboratorio" class="about" aria-labelledby="lab-title">
+      <div class="wrap about-layout">
+      <h2 id="lab-title">Objetivos do Grupo</h2>
       <div>
-        <h2 class="text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2.5">
-          <span class="p-2 bg-blue-100 text-blue-700 rounded-lg text-sm"><i class="fa-solid fa-book-open"></i></span>
-          Publicações & Projetos de Pesquisa
-        </h2>
-        <p class="text-slate-500 text-xs sm:text-sm mt-1">Trabalhos científicos, códigos abertos e parcerias estratégicas com a indústria.</p>
+        <p>O grupo visa estudar e propor sistemas ciberfísicos. Um sistema ciberfísico é composto pela junção de técnicas computacionais com o foco em interagir com o mundo físico, seja coletando e processando dados de sensores para a identificação de padrões, ou realizando atuações, como desligar um equipamento ou fechando uma porta, por exemplo.</p>
+        <p>Para se chegar a este objetivo, é preciso estudar tópicos como sistemas embarcados, IoT, IA, sensores e atuadores, entre outros tópicos correlatos. O grupo possui o Laboratório de Sistemas CiberFísicos onde os alunos podem realizar suas pesquisas.</p>
       </div>
-    </div>
-
-    <!-- Lista de Projetos -->
-    <div id="projects-container" class="space-y-8">
-      <div class="text-center py-12 text-slate-400">
-        <i class="fa-solid fa-spinner fa-spin text-2xl mb-2"></i>
-        <p>Carregando portfólio de projetos...</p>
       </div>
-    </div>
-
+    </section>
   </main>
-
-  <!-- Rodapé -->
-  <footer class="bg-white border-t border-slate-200 py-6 text-center text-slate-400 text-xs mt-20">
-    <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-      <p>&copy; <span id="year"></span> PPGIA - Sistemas Ciberfísicos. Todos os direitos reservados.</p>
-      <p class="text-slate-400 font-medium">PUC-PR • Excelência em Pesquisa</p>
-    </div>
-  </footer>
-
-  <!-- Script Dinâmico -->
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    function copyBibtex(buttonElement, bibtexText) {
-      navigator.clipboard.writeText(bibtexText).then(() => {
-        const originalHTML = buttonElement.innerHTML;
-        buttonElement.innerHTML = '<i class="fa-solid fa-check text-green-500"></i> Copiado!';
-        buttonElement.classList.add('bg-green-50', 'border-green-300');
-        setTimeout(() => {
-          buttonElement.innerHTML = originalHTML;
-          buttonElement.classList.remove('bg-green-50', 'border-green-300');
-        }, 2000);
-      }).catch(err => {
-        console.error('Erro ao copiar BibTeX: ', err);
-      });
-    }
-
-    fetch('./data.json')
-      .then(response => response.json())
-      .then(projects => {
-        const container = document.getElementById('projects-container');
-        container.innerHTML = '';
-
-        if (!projects || projects.length === 0) {
-          container.innerHTML = '<div class="text-center py-12 text-slate-400 bg-white rounded-xl border border-slate-200">Nenhum projeto publicado no momento.</div>';
-          return;
-        }
-
-        const grid = document.createElement('div');
-        grid.className = 'space-y-6';
-
-        projects.forEach(project => {
-          const card = document.createElement('div');
-          card.className = 'bg-white rounded-2xl shadow-sm border border-slate-200/90 overflow-hidden hover:shadow-md transition duration-300 flex flex-col md:flex-row';
-          
-          let mediaHTML = '<div class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400"><i class="fa-solid fa-image text-3xl"></i></div>';
-          if (project.media && project.media.length > 0) {
-            const primaryMedia = project.media[0];
-            if (primaryMedia.type === 'video') {
-              mediaHTML = `<iframe src="${primaryMedia.url}" class="w-full h-full min-h-[220px]" frameborder="0" allowfullscreen></iframe>`;
-            } else {
-              mediaHTML = `<img src="${primaryMedia.url}" alt="${project.title}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80';">`;
-            }
-          }
-
-          const partnerHTML = project.partner && project.partner.name ? `
-            <div class="text-xs font-medium text-slate-500 mb-2 flex items-center gap-1.5">
-              ${project.partner.logo ? `<img src="${project.partner.logo}" alt="${project.partner.name}" class="w-4 h-4 object-contain">` : '<i class="fa-solid fa-industry text-slate-400"></i>'}
-              Indústria Parceira: <a href="${project.partner.url}" target="_blank" class="text-blue-600 hover:underline font-semibold">${project.partner.name}</a>
-            </div>
-          ` : '';
-
-          card.innerHTML = `
-            <div class="md:w-2/5 relative min-h-[220px] bg-slate-100 overflow-hidden">
-              ${mediaHTML}
-            </div>
-            <div class="md:w-3/5 p-6 md:p-7 flex flex-col justify-between">
-              <div>
-                ${partnerHTML}
-                <h3 class="text-lg font-bold text-slate-900 mb-2 tracking-tight">${project.title}</h3>
-                <p class="text-slate-600 text-sm leading-relaxed mb-6">${project.description}</p>
-              </div>
-
-              <div>
-                <div class="flex flex-wrap gap-2.5 items-center pt-4 border-t border-slate-100">
-                  ${project.paper_url ? `
-                    <a href="${project.paper_url}" target="_blank" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-blue-600 text-white hover:bg-blue-700 shadow-sm transition">
-                      <i class="fa-solid fa-file-pdf"></i> Artigo (DOI)
-                    </a>
-                  ` : ''}
-                  
-                  ${project.repo_url ? `
-                    <a href="${project.repo_url}" target="_blank" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 transition">
-                      <i class="fa-brands fa-github text-sm"></i> Código-Fonte
-                    </a>
-                  ` : ''}
-                </div>
-
-                ${project.bibtex ? `
-                  <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                    <details class="group flex-1 mr-2">
-                      <summary class="cursor-pointer text-xs font-semibold text-slate-500 hover:text-blue-600 transition select-none flex items-center gap-1">
-                        <i class="fa-solid fa-code text-xs"></i> Citação (BibTeX)
-                      </summary>
-                      <pre class="mt-2 p-3 bg-slate-900 text-slate-200 rounded-xl text-xs overflow-x-auto font-mono shadow-inner"><code>${project.bibtex}</code></pre>
-                    </details>
-                    <button onclick="copyBibtex(this, \`${project.bibtex.replace(/`/g, '\\`')}\`)" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-medium transition border border-slate-300 flex items-center gap-1.5 shrink-0">
-                      <i class="fa-regular fa-copy"></i> Copiar
-                    </button>
-                  </div>
-                ` : ''}
-              </div>
-            </div>
-          `;
-          grid.appendChild(card);
-        });
-
-        container.appendChild(grid);
-      })
-      .catch(error => {
-        console.error('Erro ao carregar os dados:', error);
-        document.getElementById('projects-container').innerHTML = '<div class="text-center py-12 text-red-500">Erro ao carregar os dados. Verifique o arquivo data.json.</div>';
-      });
-  </script>
-
 </body>
 </html>
