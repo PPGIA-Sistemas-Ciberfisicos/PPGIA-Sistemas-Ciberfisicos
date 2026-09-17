@@ -12,43 +12,48 @@
 <body class="bg-slate-50 text-slate-800 antialiased font-sans selection:bg-blue-600 selection:text-white">
 
   <!-- Hero Section -->
-  <header class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 text-white py-20 px-6 overflow-hidden border-b border-slate-800">
+  <header class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 text-white py-16 px-6 overflow-hidden border-b border-slate-800">
     <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
-    <div class="max-w-5xl mx-auto relative z-10 text-center">
-      <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-300 border border-blue-500/30 mb-6">
+    <div class="max-w-5xl mx-auto relative z-10 flex flex-col items-center text-center">
+      
+      <!-- Logo do Laboratório -->
+      <div class="mb-5 p-3 bg-white/15 backdrop-blur-md rounded-2xl border border-white/10 shadow-lg">
+        <img src="https://via.placeholder.com/80x80?text=PPGIA" alt="Logo PPGIA" class="w-16 h-16 object-contain rounded-xl">
+      </div>
+
+      <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-300 border border-blue-500/30 mb-4">
         <i class="fa-solid fa-microchip"></i> PPGIA • Sistemas Ciberfísicos
       </span>
-      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
+      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-3">
         Laboratório de Pesquisa & Inovação
       </h1>
-      <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
-        Vitrine oficial de projetos desenvolvidos pela academia em parceria estratégica com o setor industrial.
+      <p class="text-base md:text-lg text-slate-300 max-w-xl font-light leading-relaxed">
+        Desenvolvimento de tecnologias avançadas e parcerias estratégicas com o setor industrial.
       </p>
     </div>
   </header>
 
-  <!-- Container Principal -->
-  <main class="max-w-6xl mx-auto px-6 py-12">
-    
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-slate-200 pb-6 gap-4">
-      <div>
-        <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
-          <i class="fa-solid fa-rocket text-blue-600"></i> Vitrine de Projetos Publicados
-        </h2>
-        <p class="text-slate-600 text-sm mt-1">
-          Explore nossos artigos científicos validados, códigos abertos e parcerias industriais. Projetos em andamento permanecem em ambiente privado.
-        </p>
+  <!-- Seção de Logos / Empresas Parceiras -->
+  <section class="bg-white border-b border-slate-200 py-6 px-6">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+      <span class="text-xs font-bold uppercase tracking-wider text-slate-400 text-center sm:text-left">
+        <i class="fa-solid fa-handshake mr-1"></i> Empresas & Parceiros Estratégicos
+      </span>
+      <div class="flex flex-wrap items-center justify-center gap-8 opacity-80 hover:opacity-100 transition duration-300">
+        <!-- Você pode colocar as logos centrais aqui também se desejar -->
+        <span class="text-sm font-semibold text-slate-600">Setor de Mineração & Indústria</span>
       </div>
     </div>
+  </section>
 
-    <!-- Onde os projetos serão injetados via JavaScript -->
+  <!-- Container Principal -->
+  <main class="max-w-6xl mx-auto px-6 py-12">
     <div id="projects-container" class="space-y-16">
       <div class="text-center py-12 text-slate-500">
         <i class="fa-solid fa-spinner fa-spin text-2xl mb-2"></i>
         <p>Carregando projetos...</p>
       </div>
     </div>
-
   </main>
 
   <!-- Rodapé -->
@@ -63,7 +68,7 @@
     </div>
   </footer>
 
-  <!-- Script Dinâmico com Copiar BibTeX -->
+  <!-- Script Dinâmico -->
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -99,11 +104,11 @@
           categoryWrapper.className = 'space-y-6';
           
           categoryWrapper.innerHTML = `
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 border-b border-slate-200 pb-3">
               <span class="p-2 bg-blue-100 text-blue-700 rounded-lg text-sm font-bold">
                 <i class="fa-solid fa-folder-open"></i>
               </span>
-              <h3 class="text-xl font-bold text-slate-900 tracking-tight">${category}</h3>
+              <h3 class="text-2xl font-bold text-slate-900 tracking-tight">${category}</h3>
             </div>
           `;
 
@@ -116,19 +121,33 @@
               const card = document.createElement('div');
               card.className = 'bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden hover:shadow-md transition duration-300 flex flex-col md:flex-row';
               
-              // Tratar imagens (pega a primeira ou um placeholder se não houver)
-              const mainImage = (project.images && project.images.length > 0) ? project.images[0] : 'https://via.placeholder.com/600x400?text=Projeto+PPGIA';
+              // Processar Mídia
+              let mediaHTML = '<div class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400"><i class="fa-solid fa-image text-3xl"></i></div>';
+              if (project.media && project.media.length > 0) {
+                const primaryMedia = project.media[0];
+                if (primaryMedia.type === 'video') {
+                  mediaHTML = `<iframe src="${primaryMedia.url}" class="w-full h-full min-h-[240px]" frameborder="0" allowfullscreen></iframe>`;
+                } else {
+                  mediaHTML = `<img src="${primaryMedia.url}" alt="${project.title}" class="w-full h-full object-cover hover:scale-105 transition duration-500">`;
+                }
+              }
+
+              // Renderizar Empresa Parceira com suporte a SVG/PNG
+              const partnerHTML = project.partner ? `
+                <a href="${project.partner.url}" target="_blank" class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition">
+                  ${project.partner.logo ? `<img src="${project.partner.logo}" alt="${project.partner.name}" class="w-4 h-4 object-contain">` : '<i class="fa-solid fa-handshake text-xs">️</i>'}
+                  Parceria: ${project.partner.name}
+                </a>
+              ` : '';
 
               card.innerHTML = `
                 <div class="md:w-2/5 relative min-h-[240px] bg-slate-100 overflow-hidden">
-                  <img src="${mainImage}" alt="${project.title}" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                  ${mediaHTML}
                 </div>
                 <div class="md:w-3/5 p-6 md:p-8 flex flex-col justify-between">
                   <div>
-                    <div class="mb-3">
-                      <a href="${project.partner_url}" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition">
-                        <i class="fa-solid fa-handshake text-xs"></i> Parceria: ${project.partner}
-                      </a>
+                    <div class="flex items-center justify-between mb-3">
+                      ${partnerHTML}
                     </div>
                     <h4 class="text-xl font-bold text-slate-900 mb-3 tracking-tight">${project.title}</h4>
                     <p class="text-slate-600 text-sm leading-relaxed mb-6">${project.description}</p>

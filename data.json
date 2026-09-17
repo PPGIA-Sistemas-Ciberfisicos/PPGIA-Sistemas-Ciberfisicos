@@ -1,31 +1,43 @@
 [
   {
-    "id": "cidades-inteligentes-iot",
-    "title": "Monitoramento de Tráfego Urbano em Tempo Real",
-    "category": "Cidades Inteligentes",
-    "partner": "Empresa TechMob",
-    "partner_url": "https://exemplo.com",
-    "images": [
-      "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=800&q=80"
+    "id": "mobile-phone-mining",
+    "title": "Mobile Phone Detection for Mining Teleoperation Safety",
+    "category": "Sistemas Ciberfísicos & Mineração",
+    "partner": {
+      "name": "TELEOP",
+      "url": "https://www.teleop.com.br/",
+      "logo": "./partner-logos/teleop.svg"
+    },
+    "media": [
+      {
+        "type": "image",
+        "url": "./projects-assets/mobile-phone-mining/banner.jpg"
+      }
     ],
-    "description": "Sistema integrado de visão computacional e sensores IoT para otimização de semáforos inteligentes e redução de congestionamentos urbanos.",
-    "paper_url": "https://doi.org/10.1016/j.eswa.2026.123456",
-    "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/trafego-urbano-iot",
-    "bibtex": "@inproceedings{silva2026trafego,\n  author={Silva, João and Souza, Maria},\n  title={Monitoramento de Tráfego Urbano em Tempo Real},\n  booktitle={IEEE Transactions on Intelligent Transportation Systems},\n  year={2026}\n}"
+    "description": "Desenvolvimento de sistema inteligente para detecção de uso de telefones celulares em ambientes de mineração...",
+    "paper_url": "https://doi.org/10.1007/978-3-032-32023-0_50",
+    "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/mobile-phone-mining-detection",
+    "bibtex": "@incollection{mining2026mobile,\n  title={Mobile Phone Detection for Mining Teleoperation Safety},\n  booktitle={Advances in Intelligent Systems and Computing},\n  doi={10.1007/978-3-032-32023-0_50},\n  year={2026}\n}"
   },
+  
   {
-    "id": "industria-gemeo-digital",
-    "title": "Gêmeo Digital para Manutenção Preditiva",
-    "category": "Indústria 4.0",
-    "partner": "Indústria MetalCorp",
-    "partner_url": "https://exemplo.com",
-    "images": [
-      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80"
+    "id": "outro-projeto-mesma-empresa",
+    "title": "Outro Sistema de Monitoramento para Equipamentos Pesados",
+    "category": "Sistemas Ciberfísicos & Mineração",
+    "partner": {
+      "name": "TELEOP",
+      "url": "https://www.teleop.com.br/",
+      "logo": "./partner-logos/teleop.svg"
+    },
+    "media": [
+      {
+        "type": "image",
+        "url": "./projects-assets/outro-projeto-mesma-empresa/banner.jpg"
+      }
     ],
-    "description": "Plataforma baseada em machine learning para previsão de falhas mecânicas em linhas de montagem robotizadas utilizando telemetria industrial.",
-    "paper_url": "https://doi.org/10.1109/TII.2026.654321",
-    "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/gemeo-digital-metalcorp",
-    "bibtex": "@article{pereira2026digital,\n  author={Pereira, Carlos and Costa, Ana},\n  title={Gêmeo Digital para Manutenção Preditiva},\n  journal={IEEE Transactions on Industrial Informatics},\n  year={2026}\n}"
+    "description": "Segundo projeto desenvolvido em parceria com a mesma empresa focado em telemetria avançada...",
+    "paper_url": "https://doi.org/10.1007/outro-doi-exemplo",
+    "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/outro-projeto-repo",
+    "bibtex": "@article{amigo2026outro,\n  title={Outro Sistema de Monitoramento},\n  journal={Journal of Systems},\n  year={2026}\n}"
   }
 ]
