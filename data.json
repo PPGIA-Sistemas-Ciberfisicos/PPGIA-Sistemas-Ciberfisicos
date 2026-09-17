@@ -18,26 +18,5 @@
     "paper_url": "https://doi.org/10.1007/978-3-032-32023-0_50",
     "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/mobile-phone-mining-detection",
     "bibtex": "@incollection{mining2026mobile,\n  title={Mobile Phone Detection for Mining Teleoperation Safety},\n  booktitle={Advances in Intelligent Systems and Computing},\n  doi={10.1007/978-3-032-32023-0_50},\n  year={2026}\n}"
-  },
-  
-  {
-    "id": "outro-projeto-mesma-empresa",
-    "title": "Outro Sistema de Monitoramento para Equipamentos Pesados",
-    "category": "Sistemas Ciberfísicos & Mineração",
-    "partner": {
-      "name": "TELEOP",
-      "url": "https://www.teleop.com.br/",
-      "logo": "./partner-logos/teleop.svg"
-    },
-    "media": [
-      {
-        "type": "image",
-        "url": "./projects-assets/outro-projeto-mesma-empresa/banner.jpg"
-      }
-    ],
-    "description": "Segundo projeto desenvolvido em parceria com a mesma empresa focado em telemetria avançada...",
-    "paper_url": "https://doi.org/10.1007/outro-doi-exemplo",
-    "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/outro-projeto-repo",
-    "bibtex": "@article{amigo2026outro,\n  title={Outro Sistema de Monitoramento},\n  journal={Journal of Systems},\n  year={2026}\n}"
   }
 ]
