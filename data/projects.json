@@ -1,0 +1,26 @@
+[
+  {
+    "id": "cidades-inteligentes-iot",
+    "title": "Monitoramento de Tráfego Urbano em Tempo Real",
+    "category": "Cidades Inteligentes",
+    "partner": "Empresa TechMob",
+    "partner_url": "https://exemplo.com",
+    "image": "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=600&q=80",
+    "description": "Sistema integrado de visão computacional e sensores IoT para otimização de semáforos inteligentes e redução de congestionamentos urbanos.",
+    "paper_url": "https://doi.org/10.1016/j.eswa.2026.123456",
+    "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/trafego-urbano-iot",
+    "bibtex": "@inproceedings{silva2026trafego,\n  author={Silva, João and Souza, Maria},\n  title={Monitoramento de Tráfego Urbano em Tempo Real},\n  booktitle={IEEE Transactions on Intelligent Transportation Systems},\n  year={2026}\n}"
+  },
+  {
+    "id": "industria-gemeo-digital",
+    "title": "Gêmeo Digital para Manutenção Preditiva",
+    "category": "Indústria 4.0",
+    "partner": "Indústria MetalCorp",
+    "partner_url": "https://exemplo.com",
+    "image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
+    "description": "Plataforma baseada em machine learning para previsão de falhas mecânicas em linhas de montagem robotizadas utilizando telemetria industrial.",
+    "paper_url": "https://doi.org/10.1109/TII.2026.654321",
+    "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/gemeo-digital-metalcorp",
+    "bibtex": "@article{pereira2026digital,\n  author={Pereira, Carlos and Costa, Ana},\n  title={Gêmeo Digital para Manutenção Preditiva},\n  journal={IEEE Transactions on Industrial Informatics},\n  year={2026}\n}"
+  }
+]

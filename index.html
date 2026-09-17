@@ -1,0 +1,64 @@
+---
+layout: default
+---
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ site.title }}</title>
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
+</head>
+<body>
+
+  <header class="lab-header">
+    <h1>Laboratório de Sistemas Ciberfísicos</h1>
+    <p>PPGIA — Pesquisa aplicada, inovação tecnológica e parcerias estratégicas com a indústria.</p>
+  </header>
+
+  <div class="container">
+    <h2>🔬 Vitrine de Projetos Publicados</h2>
+    <p>Conheça nossas pesquisas com código aberto, artigos científicos validados e parcerias corporativas. Projetos em andamento permanecem em ambiente privado até a sua publicação oficial.</p>
+
+    <!-- Loop gerando os projetos dinamicamente a partir do JSON -->
+    {% assign categories = site.data.projects | map: "category" | uniq %}
+    
+    {% for cat in categories %}
+      <h2 class="category-title">📂 {{ cat }}</h2>
+      
+      {% for project in site.data.projects %}
+        {% if project.category == cat %}
+          <div class="project-card">
+            <img src="{{ project.image }}" alt="{{ project.title }}" class="project-img">
+            <div class="project-content">
+              <span class="partner-tag">Parceria: <a href="{{ project.partner_url }}" target="_blank" style="color: inherit; text-decoration: underline;">{{ project.partner }}</a></span>
+              <h3>{{ project.title }}</h3>
+              <p>{{ project.description }}</p>
+              
+              <div class="project-links">
+                {% if project.paper_url != "" %}
+                  <a href="{{ project.paper_url }}" target="_blank" class="btn">📄 Artigo (DOI)</a>
+                {% endif %}
+                {% if project.repo_url != "" %}
+                  <a href="{{ project.repo_url }}" target="_blank" class="btn btn-outline">🔗 Repositório do Código</a>
+                {% endif %}
+              </div>
+
+              {% if project.bibtex != "" %}
+                <details>
+                  <summary>Citação (BibTeX)</summary>
+                  <pre><code>{{ project.bibtex }}</code></pre>
+                </details>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  </div>
+
+  <footer>
+    <p>&copy; {{ site.time | date: '%Y' }} PPGIA - Sistemas Ciberfísicos. Universidade.</p>
+  </footer>
+
+</body>
+</html>

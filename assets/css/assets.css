@@ -1,0 +1,154 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+}
+
+header.lab-header {
+  background: linear-gradient(135deg, #1b2a4a 0%, #0d1b2a 100%);
+  color: white;
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+header.lab-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2.2rem;
+}
+
+header.lab-header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+h2.category-title {
+  border-bottom: 2px solid #0d1b2a;
+  padding-bottom: 8px;
+  margin-top: 40px;
+  color: #0d1b2a;
+}
+
+.project-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  border: 1px solid #eaeaea;
+}
+
+@media(max-width: 768px) {
+  .project-card {
+    flex-direction: column;
+  }
+}
+
+.project-img {
+  width: 350px;
+  min-height: 220px;
+  object-fit: cover;
+}
+
+@media(max-width: 768px) {
+  .project-img {
+    width: 100%;
+    height: 200px;
+  }
+}
+
+.project-content {
+  padding: 25px;
+  flex: 1;
+}
+
+.project-content h3 {
+  margin-top: 0;
+  color: #1b2a4a;
+}
+
+.partner-tag {
+  display: inline-block;
+  background: #e2e8f0;
+  color: #2d3748;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.project-links {
+  margin: 15px 0;
+}
+
+.btn {
+  display: inline-block;
+  background: #2563eb;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.btn:hover {
+  background: #1d4ed8;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+}
+
+.btn-outline:hover {
+  background: #eff6ff;
+}
+
+details {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  background: #f1f5f9;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #475569;
+}
+
+pre {
+  background: #1e293b;
+  color: #f8fafc;
+  padding: 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 0.8rem;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #64748b;
+  font-size: 0.9rem;
+  border-top: 1px solid #e2e8f0;
+  margin-top: 60px;
+}
