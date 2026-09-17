@@ -2,7 +2,7 @@
   {
     "id": "mobile-phone-mining",
     "title": "Mobile Phone Detection for Mining Teleoperation Safety",
-    "category": "Sistemas Ciberfísicos & Mineração",
+    "category": "Inteligência Artificial & Machine Learning",
     "partner": {
       "name": "TELEOP",
       "url": "https://www.teleop.com.br/",
@@ -18,5 +18,22 @@
     "paper_url": "https://doi.org/10.1007/978-3-032-32023-0_50",
     "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/mobile-phone-mining-detection",
     "bibtex": "@incollection{mining2026mobile,\n  title={Mobile Phone Detection for Mining Teleoperation Safety},\n  booktitle={Advances in Intelligent Systems and Computing},\n  doi={10.1007/978-3-032-32023-0_50},\n  year={2026}\n}"
+  },
+
+  {
+    "id": "gustavo",
+    "title": "Perception System for Autonomous Vehicles: Object Detection, Motion Tracking, and Future Position Prediction",
+    "category": "Robótica",
+    "partner": null,
+    "media": [
+      {
+        "type": "image",
+        "url": "./project-assets/gustavo/predicao-direcao.jpeg"
+      }
+    ],
+    "description": "Um sistema de fusão multissensores baseado em YOLO e LiDAR para detecção precisa de objetos, rastreamento de movimento e previsão de trajetórias em veículos autônomos.",
+    "paper_url": "https://ieeexplore.ieee.org/abstract/document/10965297",
+    "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/perception-autonomous-vehicles",
+    "bibtex": "@article{perception2026vehicles,\n  title={Perception System for Autonomous Vehicles: Object Detection, Motion Tracking, and Future Position Prediction},\n  journal={IEEE Xplore},\n  doi={10.1109/LRA.2026.10965297},\n  year={2026}\n}"
   }
 ]

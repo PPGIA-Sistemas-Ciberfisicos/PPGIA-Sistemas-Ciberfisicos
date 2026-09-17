@@ -84,3 +84,10 @@ O portal utiliza apenas HTML, CSS e JavaScript locais: não exige Jekyll, instal
 Para visualizar localmente, execute `python3 -m http.server 8000` na raiz do repositório e abra `http://localhost:8000/`. O servidor é necessário para o carregamento do `data.json`.
 
 Os estilos estão em `assets/css/moderno.css` e a renderização dos projetos em `assets/js/moderno.js`. Os cards são verticais, com a imagem acima do texto, organizados em duas colunas no desktop e uma no celular. Imagens, vídeos, links de parceiros e citações são configurados pelo modelo acima.
+
+
+### Abas de projetos
+
+O portal separa automaticamente os projetos em **Parcerias com empresas** e **Projetos do laboratório**. Um projeto com `partner.name` preenchido entra na primeira aba; sem esse nome (campo ausente, nulo ou vazio), entra na segunda.
+
+Dentro de parcerias, cada empresa aparece em um grupo expansível vertical, com logo e link no cabeçalho. O primeiro grupo começa aberto; os demais podem ser abertos de forma independente. A faixa da empresa não se repete nos cards internos. Use o mesmo `partner.name` nos projetos da mesma empresa para reuni-los; diferenças de maiúsculas/minúsculas e espaços extras são ignoradas. As empresas e os projetos seguem a ordem do `data.json`. Não é necessário editar o HTML para cadastrar novas empresas.

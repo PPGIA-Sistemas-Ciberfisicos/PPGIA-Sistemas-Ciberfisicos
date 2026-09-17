@@ -50,9 +50,9 @@ function createMedia(project) {
   return media;
 }
 
-function createPartner(partner) {
-  const header = node('div', 'partner');
-  const identity = node('div', 'partner-identity');
+function createPartner(partner, tag = 'div') {
+  const header = node(tag, 'partner');
+  const identity = node('span', 'partner-identity');
   identity.append(node('span', 'partner-label', 'EMPRESA PARCEIRA'));
   if (partner.logo) {
     const logo = node('img', 'partner-logo');
@@ -100,14 +100,12 @@ function createCitation(bibtex) {
   return details;
 }
 
-function createProject(project, index) {
+function createProject(project, index, showPartner = true, idPrefix = 'project') {
   const article = node('article', 'project');
   const title = node('h2', '', project.title);
-  title.id = 'project-title-' + index;
+  title.id = idPrefix + '-title-' + index;
   article.setAttribute('aria-labelledby', title.id);
-  const partner = project.partner;
-  const hasPartner = partner && typeof partner.name === 'string' && partner.name.trim();
-  if (hasPartner) article.append(createPartner(partner));
+  if (showPartner && partnerName(project)) article.append(createPartner(project.partner));
   const body = node('div', 'project-body');
   const info = node('div', 'project-info');
   info.append(title);
@@ -122,6 +120,136 @@ function createProject(project, index) {
   return article;
 }
 
+function partnerName(project) {
+  const partner = project.partner;
+  return partner && typeof partner.name === 'string' ? partner.name.trim().replace(/\s+/g, ' ') : '';
+}
+
+function projectGrid(projects, emptyMessage, showPartner = true, idPrefix = 'project') {
+  const grid = node('div', 'project-grid');
+  grid.append(...projects.map((project, index) => createProject(project, index, showPartner, idPrefix)));
+  if (!projects.length) grid.append(node('p', 'state', emptyMessage));
+  return grid;
+}
+
+// Only the active panel is mounted, so hidden videos cannot keep playing.
+function createTabs(entries, label, prefix, initialIndex = 0, onChange = () => {}) {
+  const group = node('div', 'tabs ' + prefix);
+  const list = node('div', 'tab-list');
+  list.setAttribute('role', 'tablist');
+  list.setAttribute('aria-label', label);
+  const tabs = [];
+  const panels = [];
+  let activeIndex = -1;
+
+  entries.forEach((entry, index) => {
+    const tab = node('button', 'tab-button', entry.label);
+    tab.type = 'button';
+    tab.id = prefix + '-tab-' + index;
+    tab.setAttribute('role', 'tab');
+    tab.setAttribute('aria-controls', prefix + '-panel-' + index);
+    const panel = node('div', 'tab-panel');
+    panel.id = prefix + '-panel-' + index;
+    panel.setAttribute('role', 'tabpanel');
+    panel.setAttribute('aria-labelledby', tab.id);
+    panel.tabIndex = 0;
+    tab.addEventListener('click', () => activate(index));
+    tabs.push(tab);
+    panels.push(panel);
+    list.append(tab);
+  });
+
+  function activate(index) {
+    if (index === activeIndex) return;
+    tabs.forEach((tab, i) => {
+      tab.setAttribute('aria-selected', String(i === index));
+      tab.tabIndex = i === index ? 0 : -1;
+      panels[i].hidden = i !== index;
+      panels[i].replaceChildren();
+    });
+    panels[index].append(entries[index].render());
+    activeIndex = index;
+    onChange(index);
+  }
+
+  list.addEventListener('keydown', event => {
+    const current = tabs.indexOf(event.target);
+    if (current < 0) return;
+    let next;
+    if (event.key === 'ArrowRight') next = (current + 1) % tabs.length;
+    else if (event.key === 'ArrowLeft') next = (current - 1 + tabs.length) % tabs.length;
+    else if (event.key === 'Home') next = 0;
+    else if (event.key === 'End') next = tabs.length - 1;
+    else return;
+    event.preventDefault();
+    activate(next);
+    tabs[next].focus();
+  });
+
+  group.append(list, ...panels);
+  activate(initialIndex);
+  return group;
+}
+
+function groupedProjects(projects) {
+  const companies = new Map();
+  const independent = [];
+  projects.forEach(project => {
+    const name = partnerName(project);
+    if (!name) {
+      independent.push(project);
+      return;
+    }
+    const key = name.normalize('NFC').toLocaleLowerCase('pt-BR');
+    if (!companies.has(key)) companies.set(key, { name, projects: [] });
+    companies.get(key).projects.push(project);
+  });
+  const companyGroups = Array.from(companies.values());
+  companyGroups.forEach((company, index) => { company.open = index === 0; });
+  function renderCompanies() {
+    if (!companyGroups.length) return node('p', 'state', 'Nenhum projeto com parceria empresarial publicado no momento.');
+    const stack = node('div', 'company-groups');
+    companyGroups.forEach((company, index) => {
+      const group = node('details', 'company-group');
+      const withLogo = company.projects.find(project => project.partner.logo);
+      const withUrl = company.projects.find(project => project.partner.url);
+      const partner = {
+        name: company.name,
+        logo: withLogo && withLogo.partner.logo,
+        url: withUrl && withUrl.partner.url
+      };
+      const summary = createPartner(partner, 'summary');
+      const indicator = node('span', 'company-toggle', '+');
+      indicator.setAttribute('aria-hidden', 'true');
+      summary.querySelector('.partner-label').append(indicator);
+      const content = node('div', 'company-content');
+      function update() {
+        company.open = group.open;
+        indicator.textContent = group.open ? '−' : '+';
+        if (group.open && !content.childElementCount) {
+          content.append(projectGrid(company.projects, '', false, 'company-' + index));
+        } else if (!group.open) content.replaceChildren();
+      }
+      group.open = company.open;
+      update();
+      group.addEventListener('toggle', () => { if (group.isConnected) update(); });
+      group.append(summary, content);
+      stack.append(group);
+    });
+    return stack;
+  }
+  return createTabs([
+    {
+      label: 'Parcerias com empresas',
+      render: renderCompanies
+    },
+    {
+      label: 'Projetos do laboratório',
+      render: () => projectGrid(independent, 'Nenhum projeto próprio do laboratório publicado no momento.')
+    }
+  ], 'Tipos de projeto', 'project-tabs', companies.size || !independent.length ? 0 : 1);
+}
+
 async function loadProjects() {
   const container = document.getElementById('projects');
   container.setAttribute('aria-busy', 'true');
@@ -131,8 +259,7 @@ async function loadProjects() {
     if (!response.ok) throw new Error('HTTP ' + response.status);
     const projects = await response.json();
     if (!Array.isArray(projects)) throw new Error('Formato de projetos inválido');
-    container.replaceChildren(...projects.map(createProject));
-    if (!projects.length) container.append(node('p', 'state', 'Novos projetos serão publicados aqui em breve.'));
+    container.replaceChildren(groupedProjects(projects));
   } catch (error) {
     const state = node('div', 'state');
     state.setAttribute('role', 'alert');
