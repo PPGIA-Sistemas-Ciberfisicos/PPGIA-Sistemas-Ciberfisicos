@@ -33,7 +33,7 @@
     ],
     "description": "Um sistema de fusão multissensores baseado em YOLO e LiDAR para detecção precisa de objetos, rastreamento de movimento e previsão de trajetórias em veículos autônomos.",
     "paper_url": "https://ieeexplore.ieee.org/abstract/document/10965297",
-    "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/perception-autonomous-vehicles",
-    "bibtex": "@article{perception2026vehicles,\n  title={Perception System for Autonomous Vehicles: Object Detection, Motion Tracking, and Future Position Prediction},\n  journal={IEEE Xplore},\n  doi={10.1109/LRA.2026.10965297},\n  year={2026}\n}"
+    "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/lidar_fusion_pkg",
+    "bibtex": "@INPROCEEDINGS{10965297,\n  author={Günther, Gustavo Andreas and Almeida da Cruz, Pedro Henrique and Barcelos de Assis, Joáo Pedro and Silla, Carlos N. and Pellenz, Marcelo Eduardo and Teixeira, Marco Antonio Simões},\n  booktitle={2025 IEEE International Conference on Industrial Technology (ICIT)}, \n  title={Perception System for Autonomous Vehicles: Object Detection, Motion Tracking, and Future Position Prediction}, \n  year={2025},\n  volume={},\n  number={},\n  pages={1-6},\n  keywords={Point cloud compression;Visualization;Laser radar;Accuracy;Motion segmentation;Dynamics;Object detection;Cameras;Trajectory;Vehicle dynamics;Sensor Fusion;LiDAR and Camera Integration;Dynamic Object Detection;Motion Prediction},\ndoi={10.1109/ICIT63637.2025.10965297}}"
   }
 ]
