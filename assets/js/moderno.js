@@ -15,6 +15,31 @@ function externalLink(text, url, className) {
   return link;
 }
 
+let activeFigureDialog;
+
+function openFigureDialog(image) {
+  if (!activeFigureDialog) {
+    const dialog = node('dialog', 'figure-dialog');
+    dialog.setAttribute('aria-labelledby', 'figure-dialog-title');
+    const title = node('h2', '', 'Visualização ampliada');
+    title.id = 'figure-dialog-title';
+    const close = node('button', 'figure-dialog-close', 'Fechar');
+    close.type = 'button';
+    const enlarged = node('img', 'figure-dialog-image');
+    close.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', () => image.focus());
+    dialog.addEventListener('keydown', event => { if (event.key === 'Escape') dialog.close(); });
+    dialog.append(close, title, enlarged);
+    document.body.append(dialog);
+    activeFigureDialog = { dialog, close, enlarged };
+  }
+  activeFigureDialog.enlarged.src = image.src;
+  activeFigureDialog.enlarged.alt = image.alt;
+  activeFigureDialog.dialog.showModal();
+  activeFigureDialog.close.focus();
+}
+
 function createMedia(project) {
   const media = node('div', 'project-media');
   const frame = node('div', 'media-frame');
@@ -45,6 +70,12 @@ function createMedia(project) {
     image.loading = 'lazy';
     image.addEventListener('error', fallback, { once: true });
     frame.append(image);
+    const enlarge = node('button', 'figure-expand', 'Ampliar figura');
+    enlarge.type = 'button';
+    enlarge.addEventListener('click', () => openFigureDialog(image));
+    media.append(frame, enlarge);
+    if (primary.caption) media.append(node('p', 'figure-caption', primary.caption));
+    return media;
   }
   media.append(frame);
   return media;
@@ -63,8 +94,8 @@ function createPartner(partner, tag = 'div') {
   } else identity.append(node('strong', '', partner.name));
   header.append(identity);
   if (partner.url) {
-    const link = externalLink('Site da empresa', partner.url, 'partner-link');
-    link.setAttribute('aria-label', 'Visitar o site da ' + partner.name);
+    const link = externalLink('Conhecer ' + partner.name, partner.url, 'partner-link');
+    link.setAttribute('aria-label', 'Conhecer ' + partner.name);
     const arrow = node('span', '', '↗');
     arrow.setAttribute('aria-hidden', 'true');
     link.append(arrow);
@@ -100,19 +131,20 @@ function createCitation(bibtex) {
   return details;
 }
 
-function createProject(project, index, showPartner = true, idPrefix = 'project') {
+function createProject(project, index, idPrefix = 'subproject') {
   const article = node('article', 'project');
   const title = node('h2', '', project.title);
   title.id = idPrefix + '-title-' + index;
   article.setAttribute('aria-labelledby', title.id);
-  if (showPartner && partnerName(project)) article.append(createPartner(project.partner));
+  if (partnerName(project)) article.append(createPartner(project.partner));
   const body = node('div', 'project-body');
   const info = node('div', 'project-info');
+  if (project.result_type) info.append(node('p', 'result-type', project.result_type));
   info.append(title);
   if (project.description) info.append(node('p', 'description', project.description));
   const actions = node('div', 'project-actions');
-  if (project.paper_url) actions.append(externalLink('Ler artigo (DOI) ↗', project.paper_url, 'button button-wine'));
-  if (project.repo_url) actions.append(externalLink('Código-fonte ↗', project.repo_url, 'button button-outline'));
+  if (project.paper_url) actions.append(externalLink('Ler artigo', project.paper_url, 'button button-wine'));
+  if (project.repo_url) actions.append(externalLink('Código-fonte', project.repo_url, 'button button-outline'));
   if (actions.childElementCount) info.append(actions);
   body.append(createMedia(project), info);
   article.append(body);
@@ -125,129 +157,82 @@ function partnerName(project) {
   return partner && typeof partner.name === 'string' ? partner.name.trim().replace(/\s+/g, ' ') : '';
 }
 
-function projectGrid(projects, emptyMessage, showPartner = true, idPrefix = 'project') {
-  const grid = node('div', 'project-grid');
-  grid.append(...projects.map((project, index) => createProject(project, index, showPartner, idPrefix)));
+function projectGrid(projects, emptyMessage, idPrefix = 'subproject') {
+  const grid = node('div', 'project-grid' + (projects.length === 1 ? ' project-grid-single' : ''));
+  grid.append(...projects.map((project, index) => createProject(project, index, idPrefix)));
   if (!projects.length) grid.append(node('p', 'state', emptyMessage));
   return grid;
 }
 
-// Only the active panel is mounted, so hidden videos cannot keep playing.
-function createTabs(entries, label, prefix, initialIndex = 0, onChange = () => {}) {
-  const group = node('div', 'tabs ' + prefix);
-  const list = node('div', 'tab-list');
-  list.setAttribute('role', 'tablist');
-  list.setAttribute('aria-label', label);
-  const tabs = [];
-  const panels = [];
-  let activeIndex = -1;
-
-  entries.forEach((entry, index) => {
-    const tab = node('button', 'tab-button', entry.label);
-    tab.type = 'button';
-    tab.id = prefix + '-tab-' + index;
-    tab.setAttribute('role', 'tab');
-    tab.setAttribute('aria-controls', prefix + '-panel-' + index);
-    const panel = node('div', 'tab-panel');
-    panel.id = prefix + '-panel-' + index;
-    panel.setAttribute('role', 'tabpanel');
-    panel.setAttribute('aria-labelledby', tab.id);
-    panel.tabIndex = 0;
-    tab.addEventListener('click', () => activate(index));
-    tabs.push(tab);
-    panels.push(panel);
-    list.append(tab);
-  });
-
-  function activate(index) {
-    if (index === activeIndex) return;
-    tabs.forEach((tab, i) => {
-      tab.setAttribute('aria-selected', String(i === index));
-      tab.tabIndex = i === index ? 0 : -1;
-      panels[i].hidden = i !== index;
-      panels[i].replaceChildren();
+function researchProjectView(project, index) {
+  const section = node('section', 'research-project');
+  const content = node('div', 'research-content');
+  const main = node('div', 'research-main');
+  const sidebar = node('aside', 'research-sidebar');
+  if (project.sections && project.sections.length) {
+    project.sections.forEach(item => {
+      const block = node('div', 'research-detail');
+      const text = item.items ? null : node('p', '', item.text);
+      block.append(node('h3', '', item.title));
+      if (item.items) {
+        const list = node('ul', 'research-list');
+        item.items.forEach(value => list.append(node('li', '', value)));
+        block.append(list);
+      } else if (text) block.append(text);
+      main.append(block);
     });
-    panels[index].append(entries[index].render());
-    activeIndex = index;
-    onChange(index);
+  } else if (project.description) main.append(node('p', 'research-project-description', project.description));
+  if (partnerName(project)) sidebar.append(createPartner(project.partner));
+  if (project.metadata && project.metadata.length) {
+    const meta = node('dl', 'research-metadata');
+    project.metadata.forEach(item => meta.append(node('dt', '', item.label), node('dd', '', item.value)));
+    sidebar.append(meta);
   }
-
-  list.addEventListener('keydown', event => {
-    const current = tabs.indexOf(event.target);
-    if (current < 0) return;
-    let next;
-    if (event.key === 'ArrowRight') next = (current + 1) % tabs.length;
-    else if (event.key === 'ArrowLeft') next = (current - 1 + tabs.length) % tabs.length;
-    else if (event.key === 'Home') next = 0;
-    else if (event.key === 'End') next = tabs.length - 1;
-    else return;
-    event.preventDefault();
-    activate(next);
-    tabs[next].focus();
-  });
-
-  group.append(list, ...panels);
-  activate(initialIndex);
-  return group;
+  content.append(main, sidebar);
+  section.append(content);
+  section.append(node('h3', 'results-title', 'Resultados preliminares'));
+  section.append(projectGrid(project.subprojects || [], 'Nenhum subprojeto publicado neste projeto de pesquisa.', 'research-' + index));
+  return section;
 }
 
-function groupedProjects(projects) {
-  const companies = new Map();
-  const independent = [];
-  projects.forEach(project => {
-    const name = partnerName(project);
-    if (!name) {
-      independent.push(project);
-      return;
-    }
-    const key = name.normalize('NFC').toLocaleLowerCase('pt-BR');
-    if (!companies.has(key)) companies.set(key, { name, projects: [] });
-    companies.get(key).projects.push(project);
-  });
-  const companyGroups = Array.from(companies.values());
-  companyGroups.forEach((company, index) => { company.open = index === 0; });
-  function renderCompanies() {
-    if (!companyGroups.length) return node('p', 'state', 'Nenhum projeto com parceria empresarial publicado no momento.');
-    const stack = node('div', 'company-groups');
-    companyGroups.forEach((company, index) => {
-      const group = node('details', 'company-group');
-      const withLogo = company.projects.find(project => project.partner.logo);
-      const withUrl = company.projects.find(project => project.partner.url);
-      const partner = {
-        name: company.name,
-        logo: withLogo && withLogo.partner.logo,
-        url: withUrl && withUrl.partner.url
-      };
-      const summary = createPartner(partner, 'summary');
-      const indicator = node('span', 'company-toggle', '+');
-      indicator.setAttribute('aria-hidden', 'true');
-      summary.querySelector('.partner-label').append(indicator);
-      const content = node('div', 'company-content');
-      function update() {
-        company.open = group.open;
-        indicator.textContent = group.open ? '−' : '+';
-        if (group.open && !content.childElementCount) {
-          content.append(projectGrid(company.projects, '', false, 'company-' + index));
-        } else if (!group.open) content.replaceChildren();
-      }
-      group.open = company.open;
-      update();
-      group.addEventListener('toggle', () => { if (group.isConnected) update(); });
-      group.append(summary, content);
-      stack.append(group);
-    });
-    return stack;
+function researchProjects(projects) {
+  const accordion = node('div', 'accordion research-accordion');
+  accordion.setAttribute('aria-label', 'Projetos de pesquisa');
+  if (!projects.length) {
+    accordion.append(node('p', 'state', 'Nenhum projeto de pesquisa publicado no momento.'));
+    return accordion;
   }
-  return createTabs([
-    {
-      label: 'Parcerias com empresas',
-      render: renderCompanies
-    },
-    {
-      label: 'Projetos do laboratório',
-      render: () => projectGrid(independent, 'Nenhum projeto próprio do laboratório publicado no momento.')
-    }
-  ], 'Tipos de projeto', 'project-tabs', companies.size || !independent.length ? 0 : 1);
+  projects.forEach((project, index) => {
+    const tab = node('div', 'accordion-item research-tab' + (index === 0 ? ' is-open' : ''));
+    const header = node('h3', 'accordion-header research-tab-header');
+    const button = node('button', 'accordion-button research-tab-button' + (index === 0 ? '' : ' collapsed'), '');
+    button.type = 'button';
+    button.id = 'research-tab-button-' + index;
+    button.setAttribute('data-bs-toggle', 'collapse');
+    button.setAttribute('data-bs-target', '#research-tab-panel-' + index);
+    button.setAttribute('aria-expanded', String(index === 0));
+    button.setAttribute('aria-controls', 'research-tab-panel-' + index);
+    const number = node('span', 'research-tab-number', String(index + 1).padStart(2, '0'));
+    number.setAttribute('aria-hidden', 'true');
+    const label = node('span', 'research-tab-label', project.title);
+    const indicator = node('span', 'research-tab-indicator');
+    indicator.setAttribute('aria-hidden', 'true');
+    const titleBlock = node('span', 'research-tab-title');
+    titleBlock.append(label);
+    if (partnerName(project)) titleBlock.append(node('span', 'research-partner-note', 'Em parceria com ' + partnerName(project)));
+    button.append(number, titleBlock, indicator);
+    header.append(button);
+    const panel = node('div', 'accordion-collapse collapse research-panel' + (index === 0 ? ' show' : ''));
+    panel.id = 'research-tab-panel-' + index;
+    panel.setAttribute('role', 'region');
+    panel.setAttribute('aria-labelledby', button.id);
+    panel.append(researchProjectView(project, index));
+    panel.addEventListener('show.bs.collapse', () => tab.classList.add('is-open'));
+    panel.addEventListener('hide.bs.collapse', () => tab.classList.remove('is-open'));
+    tab.append(header, panel);
+    accordion.append(tab);
+  });
+  return accordion;
 }
 
 async function loadProjects() {
@@ -259,7 +244,7 @@ async function loadProjects() {
     if (!response.ok) throw new Error('HTTP ' + response.status);
     const projects = await response.json();
     if (!Array.isArray(projects)) throw new Error('Formato de projetos inválido');
-    container.replaceChildren(groupedProjects(projects));
+    container.replaceChildren(researchProjects(projects));
   } catch (error) {
     const state = node('div', 'state');
     state.setAttribute('role', 'alert');

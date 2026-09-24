@@ -1,39 +1,70 @@
 [
   {
-    "id": "mobile-phone-mining",
-    "title": "Mobile Phone Detection for Mining Teleoperation Safety",
-    "category": "Inteligência Artificial & Machine Learning",
+    "id": "mining-teleoperation-safety",
+    "title": "Sistemas de percepção de ambiente voltados a equipamentos de grande porte operados remotamente, com a finalidade de prevenção de acidentes e auxílio ao operador",
+    "description": "Projeto desenvolvido em parceria entre a Pontifícia Universidade Católica do Paraná (PUCPR) e a empresa Teleop Technologies Ltda., no âmbito do Programa CNPq MAI/DAI (Chamada 009/2024), com foco no desenvolvimento de soluções em visão computacional e robótica aplicada à mineração, visando aumentar a segurança de operações remotas em equipamentos de grande porte. O trabalho envolve o estudo e a proposição de técnicas de percepção 3D do ambiente para prevenção de acidentes, monitoramento do operador por meio de visão computacional para assegurar conformidade com normas de segurança, além da implementação e validação de algoritmos de inteligência artificial para navegação, mapeamento e detecção de comportamentos de risco. O projeto prevê a participação de bolsistas de mestrado e iniciação tecnológica, com resultados esperados em forma de relatórios técnicos, artigos científicos, dissertações, sistemas de percepção aplicados e transferência tecnológica, no período de 15/01/2025 a 14/01/2027.",
+    "summary": "Desenvolvimento de soluções em visão computacional e robótica aplicada à mineração para aumentar a segurança de operações remotas em equipamentos de grande porte.",
+    "sections": [
+      { "title": "Objetivo", "text": "Desenvolver soluções em visão computacional e robótica aplicada à mineração, visando aumentar a segurança de operações remotas em equipamentos de grande porte." },
+      { "title": "Frentes de pesquisa", "items": ["Percepção 3D do ambiente para prevenção de acidentes.", "Monitoramento do operador por meio de visão computacional para assegurar conformidade com normas de segurança.", "Algoritmos de inteligência artificial para navegação, mapeamento e detecção de comportamentos de risco."] }
+    ],
+    "metadata": [
+      { "label": "Instituições", "value": "Pontifícia Universidade Católica do Paraná (PUCPR) e Teleop Technologies Ltda." },
+      { "label": "Programa", "value": "CNPq MAI/DAI (Chamada 009/2024)" },
+      { "label": "Período", "value": "15/01/2025 a 14/01/2027" }
+    ],
     "partner": {
-      "name": "TELEOP",
+      "name": "Teleop Technologies Ltda.",
       "url": "https://www.teleop.com.br/",
       "logo": "./partner-logos/teleop.svg"
     },
-    "media": [
+    "subprojects": [
       {
-        "type": "image",
-        "url": "./project-assets/mobile-phone-mining/flowchart.png"
+        "id": "mobile-phone-mining",
+        "title": "Mobile Phone Detection for Mining Teleoperation Safety",
+        "category": "Inteligência Artificial & Machine Learning",
+        "media": [
+          {
+            "type": "image",
+            "url": "./project-assets/mobile-phone-mining/system_architecture.png",
+            "caption": "Arquitetura geral do sistema de monitoramento desenvolvido no projeto; a figura não representa exclusivamente os resultados do artigo de detecção de uso de celular."
+          }
+        ],
+        "result_type": "Artigo científico",
+        "description": "Desenvolvimento de um sistema inteligente para detectar o uso de telefones celulares em ambientes de mineração, contribuindo para o monitoramento da conformidade com normas de segurança.",
+        "paper_url": "https://doi.org/10.1007/978-3-032-32023-0_50",
+        "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/vision-based-operator-monitoring",
+        "bibtex": "@incollection{mining2026mobile,\n  title={Mobile Phone Detection for Mining Teleoperation Safety},\n  booktitle={Advances in Intelligent Systems and Computing},\n  doi={10.1007/978-3-032-32023-0_50},\n  year={2026}\n}"
       }
-    ],
-    "description": "Desenvolvimento de sistema inteligente para detecção de uso de telefones celulares em ambientes de mineração...",
-    "paper_url": "https://doi.org/10.1007/978-3-032-32023-0_50",
-    "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/mobile-phone-mining-detection",
-    "bibtex": "@incollection{mining2026mobile,\n  title={Mobile Phone Detection for Mining Teleoperation Safety},\n  booktitle={Advances in Intelligent Systems and Computing},\n  doi={10.1007/978-3-032-32023-0_50},\n  year={2026}\n}"
+    ]
   },
-
   {
-    "id": "gustavo",
-    "title": "Perception System for Autonomous Vehicles: Object Detection, Motion Tracking, and Future Position Prediction",
-    "category": "Robótica",
-    "partner": null,
-    "media": [
-      {
-        "type": "image",
-        "url": "./project-assets/gustavo/predicao-direcao.jpeg"
-      }
+    "id": "autonomous-vehicles",
+    "title": "Sistemas Ciber Físicos (CPS) aplicados a agricultura, indústria e cidades inteligentes",
+    "description": "A computação modificou e continua modificando a sociedade de diferentes formas. Deixamos de utilizar papel e caneta, para termos sistemas computacionais complexos capazes de armazenar e manipular dados. Hoje vivemos a era da IA, onde sistemas inteligentes complexos são capazes de tomar decisões. O próximo grande salto da computação pode ser visto na digitalização e interação com o mundo real, por meio de sensores inteligentes e robôs móveis. Setores como indústria, agricultura e cidades estão se beneficiando da aplicação de técnicas computacionais modernas aliados a Hardwares, que estão cada vez menores e mais potentes, em sua grande maioria aplicada para a otimização de processos. São muitos os exemplos destas aplicações, em Fabricas temos robôs autônomos trabalhando em parceria com humanos, na agricultura de precisão temos Drones capazes de identificar ervas daninhas e aplicar inseticida somente em áreas desejadas. Em cidades inteligentes, temos transportes inteligentes que se conectam com terminais e trocam informações como quantidade de passageiros. Essas tecnologias são possíveis graças a junção de diferentes áreas, como robótica móvel, sensoriamento (imagem, nuvem de pontos, entre outros), Inteligência artificial e aprendizagem de máquina aplicado a dados de sensores e controle inteligente (algoritmos de reconhecimento de padrões, visão computacional, sistemas Fuzzy entre outros) e comunicação (IoT, 4g, 5g, protocolos de comunicação, entre outros). Este projeto visa estudar e desenvolver técnicas de sensoriamento e robótica móvel (Sistemas Ciber Físicos) aplicados a agricultura, indústria e cidades.",
+    "summary": "Estudo e desenvolvimento de técnicas de sensoriamento e robótica móvel para digitalizar e interagir com o mundo real em aplicações de agricultura, indústria e cidades inteligentes.",
+    "sections": [
+      { "title": "Objetivo", "text": "Estudar e desenvolver técnicas de sensoriamento e robótica móvel, como Sistemas Ciber Físicos, aplicadas a agricultura, indústria e cidades." },
+      { "title": "Frentes de pesquisa", "text": "Robótica móvel; sensoriamento por imagem e nuvem de pontos; inteligência artificial e aprendizagem de máquina aplicadas a dados de sensores; controle inteligente; e comunicação por IoT, 4G, 5G e protocolos de comunicação." }
     ],
-    "description": "Um sistema de fusão multissensores baseado em YOLO e LiDAR para detecção precisa de objetos, rastreamento de movimento e previsão de trajetórias em veículos autônomos.",
-    "paper_url": "https://ieeexplore.ieee.org/abstract/document/10965297",
-    "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/lidar_fusion_pkg",
-    "bibtex": "@INPROCEEDINGS{10965297,\n  author={Günther, Gustavo Andreas and Almeida da Cruz, Pedro Henrique and Barcelos de Assis, Joáo Pedro and Silla, Carlos N. and Pellenz, Marcelo Eduardo and Teixeira, Marco Antonio Simões},\n  booktitle={2025 IEEE International Conference on Industrial Technology (ICIT)}, \n  title={Perception System for Autonomous Vehicles: Object Detection, Motion Tracking, and Future Position Prediction}, \n  year={2025},\n  volume={},\n  number={},\n  pages={1-6},\n  keywords={Point cloud compression;Visualization;Laser radar;Accuracy;Motion segmentation;Dynamics;Object detection;Cameras;Trajectory;Vehicle dynamics;Sensor Fusion;LiDAR and Camera Integration;Dynamic Object Detection;Motion Prediction},\ndoi={10.1109/ICIT63637.2025.10965297}}"
+    "subprojects": [
+      {
+        "id": "gustavo",
+        "title": "Perception System for Autonomous Vehicles: Object Detection, Motion Tracking, and Future Position Prediction",
+        "category": "Robótica",
+        "partner": null,
+        "media": [
+          {
+            "type": "image",
+            "url": "./project-assets/gustavo/predicao-direcao.jpeg"
+          }
+        ],
+        "result_type": "Artigo científico",
+        "description": "Sistema de fusão multissensores baseado em YOLO e LiDAR para detecção de objetos, rastreamento de movimento e previsão de trajetórias em veículos autônomos.",
+        "paper_url": "https://ieeexplore.ieee.org/abstract/document/10965297",
+        "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/lidar_fusion_pkg",
+        "bibtex": "@INPROCEEDINGS{10965297,\n  author={Günther, Gustavo Andreas and Almeida da Cruz, Pedro Henrique and Barcelos de Assis, Joáo Pedro and Silla, Carlos N. and Pellenz, Marcelo Eduardo and Teixeira, Marco Antonio Simões},\n  booktitle={2025 IEEE International Conference on Industrial Technology (ICIT)},\n  title={Perception System for Autonomous Vehicles: Object Detection, Motion Tracking, and Future Position Prediction},\n  year={2025},\n  doi={10.1109/ICIT63637.2025.10965297}}"
+      }
+    ]
   }
 ]

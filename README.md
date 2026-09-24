@@ -31,30 +31,36 @@ Assim que o seu artigo for **aceito/publicado** e o código-fonte for liberado p
 
 ```json
   {
-    "id": "nome-curto-do-projeto",
-    "title": "Título Completo do Artigo Publicado",
-    "category": "Cidades Inteligentes", 
+    "id": "nome-curto-da-pesquisa",
+    "title": "Nome do Projeto de Pesquisa",
+    "description": "Objetivo geral do projeto de pesquisa.",
     "partner": {
       "name": "Nome da Empresa Parceira",
       "url": "https://site-da-empresa.com",
       "logo": "./partner-logos/empresa.svg"
     },
-    "media": [
+    "subprojects": [
       {
-        "type": "image",
-        "url": "./project-assets/nome-curto-do-projeto/banner.jpg"
+        "id": "nome-curto-do-subprojeto",
+        "title": "Título Completo do Artigo Publicado",
+        "category": "Cidades Inteligentes",
+        "media": [
+          {
+            "type": "image",
+            "url": "./project-assets/nome-curto-do-subprojeto/banner.jpg"
+          }
+        ],
+        "description": "Breve resumo do subprojeto e dos resultados preliminares.",
+        "paper_url": "https://doi.org/10.xxxx/xxxxx",
+        "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/nome-do-repositorio-do-codigo"
       }
-    ],
-    "description": "Breve resumo do projeto, explicando a arquitetura desenvolvida e os principais resultados obtidos.",
-    "paper_url": "https://doi.org/10.xxxx/xxxxx",
-    "repo_url": "https://github.com/PPGIA-Sistemas-Ciberfisicos/nome-do-repositorio-do-codigo",
-    "bibtex": "@inproceedings{seuSobrenome2026titulo,\n  author={Sobrenome, Nome and Orientador, Nome},\n  title={Título do Artigo},\n  booktitle={Nome da Conferência ou Periódico},\n  year={2026}\n}"
+    ]
   }
 ```
 
 ### Projetos sem empresa parceira
 
-O campo `partner` é opcional. Para projetos acadêmicos individuais, remova esse campo ou use `"partner": null` no `data.json`. A faixa de parceria não será exibida: o card começa diretamente pela mídia, mantendo a mesma borda vinho, título, descrição, links e citação dos demais projetos. Não é necessário informar uma empresa fictícia ou usar um rótulo “sem parceria”.
+O campo `partner` é opcional e pertence ao projeto de pesquisa. Para projetos acadêmicos individuais, remova esse campo ou use `"partner": null` no `data.json`. Quando informado, a faixa de parceria aparece uma vez no painel principal do projeto, antes dos subprojetos.
 
 Quando houver parceria, informe `partner.name`. A logo (`partner.logo`) e o site (`partner.url`) também são opcionais: sem logo, aparece o nome da empresa; sem URL, o link não é exibido.
 
@@ -67,6 +73,8 @@ O primeiro item de `media` define o banner do projeto. Para substituir a imagem 
   {
     "type": "video",
     "url": "./project-assets/mobile-phone-mining/demo.mp4"
+      }
+    ]
   }
 ]
 ```
@@ -83,11 +91,13 @@ O portal utiliza apenas HTML, CSS e JavaScript locais: não exige Jekyll, instal
 
 Para visualizar localmente, execute `python3 -m http.server 8000` na raiz do repositório e abra `http://localhost:8000/`. O servidor é necessário para o carregamento do `data.json`.
 
-Os estilos estão em `assets/css/moderno.css` e a renderização dos projetos em `assets/js/moderno.js`. Os cards são verticais, com a imagem acima do texto, organizados em duas colunas no desktop e uma no celular. Imagens, vídeos, links de parceiros e citações são configurados pelo modelo acima.
+Os estilos estão em `assets/css/moderno.css` e a renderização dos projetos em `assets/js/moderno.js`. Um único resultado usa composição horizontal no desktop; múltiplos resultados usam grade responsiva. Imagens, vídeos, links de parceiros e citações são configurados pelo modelo acima.
 
 
-### Abas de projetos
+### Abas de projetos de pesquisa
 
-O portal separa automaticamente os projetos em **Parcerias com empresas** e **Projetos do laboratório**. Um projeto com `partner.name` preenchido entra na primeira aba; sem esse nome (campo ausente, nulo ou vazio), entra na segunda.
+Cada objeto raiz do `data.json` é um **projeto de pesquisa** e aparece como uma aba própria. Os campos `summary`, `metadata` e `sections` organizam o resumo, a ficha institucional e os blocos editoriais disponíveis, como objetivo e frentes de pesquisa. Os artigos e demais entregas ficam no array `subprojects`, exibido sob o título **Resultados preliminares**. Cada subprojeto tem seu próprio repositório Git, DOI e, quando cadastrado, citação BibTeX recolhida no card.
 
-Dentro de parcerias, cada empresa aparece em um grupo expansível vertical, com logo e link no cabeçalho. O primeiro grupo começa aberto; os demais podem ser abertos de forma independente. A faixa da empresa não se repete nos cards internos. Use o mesmo `partner.name` nos projetos da mesma empresa para reuni-los; diferenças de maiúsculas/minúsculas e espaços extras são ignoradas. As empresas e os projetos seguem a ordem do `data.json`. Não é necessário editar o HTML para cadastrar novas empresas.
+Projetos de pesquisa podem ter parceria ou não. Quando o projeto tiver `partner.name`, a logo e o link institucional aparecem na ficha lateral do painel expandido. O cabeçalho mostra somente a linha compacta “Em parceria com…”, fora do botão que controla a expansão.
+
+Imagens de resultados usam `type: "image"` e podem ser ampliadas pelo botão **Ampliar figura**. O diálogo pode ser fechado pelo botão, clicando fora da figura ou usando a tecla Escape.

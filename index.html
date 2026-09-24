@@ -7,7 +7,9 @@
   <meta name="theme-color" content="#781d32">
   <title>Laboratório de Sistemas Ciberfísicos — PPGIA / PUC-PR</title>
   <link rel="icon" href="./laboratory.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="./assets/css/moderno.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous" defer></script>
   <script src="./assets/js/moderno.js" defer></script>
 </head>
 <body>
@@ -19,13 +21,18 @@
     </div>
   </header>
   <main>
-    <section id="projetos" class="portfolio wrap" aria-label="Projetos de pesquisa">
+    <section id="projetos" class="portfolio wrap" aria-labelledby="projects-title">
+      <div class="section-heading">
+        <p class="section-kicker">Pesquisa aplicada</p>
+        <h2 id="projects-title">Projetos de pesquisa</h2>
+        <p>Expanda cada projeto para consultar sua abordagem, parcerias e resultados científicos.</p>
+      </div>
       <div id="projects" aria-busy="true"><p class="state" role="status">Carregando projetos…</p></div>
       <noscript><p class="state">Ative o JavaScript para visualizar os projetos ou <a href="./data.json">consulte os dados do portfólio</a>.</p></noscript>
     </section>
     <section id="laboratorio" class="about" aria-labelledby="lab-title">
       <div class="wrap about-layout">
-      <h2 id="lab-title">Objetivos do Grupo</h2>
+      <h2 id="lab-title">Objetivos do grupo</h2>
       <div>
         <p>O grupo visa estudar e propor sistemas ciberfísicos. Um sistema ciberfísico é composto pela junção de técnicas computacionais com o foco em interagir com o mundo físico, seja coletando e processando dados de sensores para a identificação de padrões, ou realizando atuações, como desligar um equipamento ou fechando uma porta, por exemplo.</p>
         <p>Para se chegar a este objetivo, é preciso estudar tópicos como sistemas embarcados, IoT, IA, sensores e atuadores, entre outros tópicos correlatos. O grupo possui o Laboratório de Sistemas CiberFísicos onde os alunos podem realizar suas pesquisas.</p>
