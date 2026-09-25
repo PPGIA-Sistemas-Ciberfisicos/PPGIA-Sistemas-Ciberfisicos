@@ -96,8 +96,8 @@ Os estilos estão em `assets/css/moderno.css` e a renderização dos projetos em
 
 ### Abas de projetos de pesquisa
 
-Cada objeto raiz do `data.json` é um **projeto de pesquisa** e aparece como uma aba própria. Os campos `summary`, `metadata` e `sections` organizam o resumo, a ficha institucional e os blocos editoriais disponíveis, como objetivo e frentes de pesquisa. Os artigos e demais entregas ficam no array `subprojects`, exibido sob o título **Resultados preliminares**. Cada subprojeto tem seu próprio repositório Git, DOI e, quando cadastrado, citação BibTeX recolhida no card.
+Cada objeto raiz do `data.json` é um **projeto de pesquisa** e aparece como uma aba própria. O painel destaca os **Resultados preliminares**, definidos no array `subprojects`, com imagem, título, descrição e links **Ler artigo** e **Repositório**. Os campos `summary`, `metadata`, `sections`, `result_type` e `bibtex` podem permanecer nos dados, mas não são exibidos. As citações devem ser consultadas no repositório de cada subprojeto.
 
-Projetos de pesquisa podem ter parceria ou não. Quando o projeto tiver `partner.name`, a logo e o link institucional aparecem na ficha lateral do painel expandido. O cabeçalho mostra somente a linha compacta “Em parceria com…”, fora do botão que controla a expansão.
+Projetos de pesquisa podem ter parceria ou não. Quando o projeto tiver `partner.name`, uma faixa compacta com **Empresa parceira**, logo e link **Visitar site** aparece acima dos resultados. O cabeçalho da aba apresenta o número e o título do projeto.
 
 Imagens de resultados usam `type: "image"` e podem ser ampliadas pelo botão **Ampliar figura**. O diálogo pode ser fechado pelo botão, clicando fora da figura ou usando a tecla Escape.

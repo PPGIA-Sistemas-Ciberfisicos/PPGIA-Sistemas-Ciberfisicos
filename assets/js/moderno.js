@@ -17,7 +17,7 @@ function externalLink(text, url, className) {
 
 let activeFigureDialog;
 
-function openFigureDialog(image) {
+function openFigureDialog(image, trigger) {
   if (!activeFigureDialog) {
     const dialog = node('dialog', 'figure-dialog');
     dialog.setAttribute('aria-labelledby', 'figure-dialog-title');
@@ -28,12 +28,13 @@ function openFigureDialog(image) {
     const enlarged = node('img', 'figure-dialog-image');
     close.addEventListener('click', () => dialog.close());
     dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
-    dialog.addEventListener('close', () => image.focus());
+    dialog.addEventListener('close', () => activeFigureDialog.trigger?.focus());
     dialog.addEventListener('keydown', event => { if (event.key === 'Escape') dialog.close(); });
     dialog.append(close, title, enlarged);
     document.body.append(dialog);
     activeFigureDialog = { dialog, close, enlarged };
   }
+  activeFigureDialog.trigger = trigger;
   activeFigureDialog.enlarged.src = image.src;
   activeFigureDialog.enlarged.alt = image.alt;
   activeFigureDialog.dialog.showModal();
@@ -48,6 +49,7 @@ function createMedia(project) {
   if (!primary || !primary.url) {
     frame.append(node('p', 'media-fallback', 'Conheça a pesquisa nos links do projeto.'));
   } else if (primary.type === 'video') {
+    frame.classList.add('media-video');
     const isFile = /\.(mp4|webm|ogg|ogv)(?:[?#]|$)/i.test(primary.url);
     const video = node(isFile ? 'video' : 'iframe');
     video.src = primary.url;
@@ -72,7 +74,7 @@ function createMedia(project) {
     frame.append(image);
     const enlarge = node('button', 'figure-expand', 'Ampliar figura');
     enlarge.type = 'button';
-    enlarge.addEventListener('click', () => openFigureDialog(image));
+    enlarge.addEventListener('click', () => openFigureDialog(image, enlarge));
     media.append(frame, enlarge);
     if (primary.caption) media.append(node('p', 'figure-caption', primary.caption));
     return media;
@@ -94,7 +96,7 @@ function createPartner(partner, tag = 'div') {
   } else identity.append(node('strong', '', partner.name));
   header.append(identity);
   if (partner.url) {
-    const link = externalLink('Conhecer ' + partner.name, partner.url, 'partner-link');
+    const link = externalLink('Visitar site', partner.url, 'partner-link');
     link.setAttribute('aria-label', 'Conhecer ' + partner.name);
     const arrow = node('span', '', '↗');
     arrow.setAttribute('aria-hidden', 'true');
@@ -104,51 +106,22 @@ function createPartner(partner, tag = 'div') {
   return header;
 }
 
-function createCitation(bibtex) {
-  const details = node('details', 'citation');
-  const summary = node('summary', '', 'Citação BibTeX');
-  const panel = node('div', 'citation-panel');
-  const toolbar = node('div', 'citation-toolbar');
-  const status = node('span', 'copy-status');
-  status.setAttribute('role', 'status');
-  const copy = node('button', 'copy-button', 'Copiar citação');
-  copy.type = 'button';
-  copy.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(bibtex);
-      status.textContent = 'Citação copiada!';
-    } catch (error) {
-      status.textContent = 'Selecione o texto abaixo para copiar.';
-    }
-  });
-  const pre = node('pre');
-  pre.tabIndex = 0;
-  pre.setAttribute('aria-label', 'Código da citação BibTeX');
-  pre.append(node('code', '', bibtex));
-  toolbar.append(status, copy);
-  panel.append(toolbar, pre);
-  details.append(summary, panel);
-  return details;
-}
-
 function createProject(project, index, idPrefix = 'subproject') {
   const article = node('article', 'project');
-  const title = node('h2', '', project.title);
+  const title = node('h4', '', project.title);
   title.id = idPrefix + '-title-' + index;
   article.setAttribute('aria-labelledby', title.id);
   if (partnerName(project)) article.append(createPartner(project.partner));
   const body = node('div', 'project-body');
   const info = node('div', 'project-info');
-  if (project.result_type) info.append(node('p', 'result-type', project.result_type));
   info.append(title);
   if (project.description) info.append(node('p', 'description', project.description));
   const actions = node('div', 'project-actions');
   if (project.paper_url) actions.append(externalLink('Ler artigo', project.paper_url, 'button button-wine'));
-  if (project.repo_url) actions.append(externalLink('Código-fonte', project.repo_url, 'button button-outline'));
+  if (project.repo_url) actions.append(externalLink('Repositório', project.repo_url, 'button button-outline'));
   if (actions.childElementCount) info.append(actions);
   body.append(createMedia(project), info);
   article.append(body);
-  if (project.bibtex) article.append(createCitation(project.bibtex));
   return article;
 }
 
@@ -165,74 +138,32 @@ function projectGrid(projects, emptyMessage, idPrefix = 'subproject') {
 }
 
 function researchProjectView(project, index) {
-  const section = node('section', 'research-project');
-  const content = node('div', 'research-content');
-  const main = node('div', 'research-main');
-  const sidebar = node('aside', 'research-sidebar');
-  if (project.sections && project.sections.length) {
-    project.sections.forEach(item => {
-      const block = node('div', 'research-detail');
-      const text = item.items ? null : node('p', '', item.text);
-      block.append(node('h3', '', item.title));
-      if (item.items) {
-        const list = node('ul', 'research-list');
-        item.items.forEach(value => list.append(node('li', '', value)));
-        block.append(list);
-      } else if (text) block.append(text);
-      main.append(block);
-    });
-  } else if (project.description) main.append(node('p', 'research-project-description', project.description));
-  if (partnerName(project)) sidebar.append(createPartner(project.partner));
-  if (project.metadata && project.metadata.length) {
-    const meta = node('dl', 'research-metadata');
-    project.metadata.forEach(item => meta.append(node('dt', '', item.label), node('dd', '', item.value)));
-    sidebar.append(meta);
-  }
-  content.append(main, sidebar);
-  section.append(content);
-  section.append(node('h3', 'results-title', 'Resultados preliminares'));
+  const section = node('div', 'research-project');
+  if (partnerName(project)) section.append(createPartner(project.partner));
+  section.append(node('p', 'results-title', 'Resultados preliminares'));
   section.append(projectGrid(project.subprojects || [], 'Nenhum subprojeto publicado neste projeto de pesquisa.', 'research-' + index));
   return section;
 }
 
 function researchProjects(projects) {
-  const accordion = node('div', 'accordion research-accordion');
-  accordion.setAttribute('aria-label', 'Projetos de pesquisa');
+  const list = node('div', 'research-list');
   if (!projects.length) {
-    accordion.append(node('p', 'state', 'Nenhum projeto de pesquisa publicado no momento.'));
-    return accordion;
+    list.append(node('p', 'state', 'Nenhum projeto publicado no momento.'));
+    return list;
   }
   projects.forEach((project, index) => {
-    const tab = node('div', 'accordion-item research-tab' + (index === 0 ? ' is-open' : ''));
-    const header = node('h3', 'accordion-header research-tab-header');
-    const button = node('button', 'accordion-button research-tab-button' + (index === 0 ? '' : ' collapsed'), '');
-    button.type = 'button';
-    button.id = 'research-tab-button-' + index;
-    button.setAttribute('data-bs-toggle', 'collapse');
-    button.setAttribute('data-bs-target', '#research-tab-panel-' + index);
-    button.setAttribute('aria-expanded', String(index === 0));
-    button.setAttribute('aria-controls', 'research-tab-panel-' + index);
-    const number = node('span', 'research-tab-number', String(index + 1).padStart(2, '0'));
+    const section = node('section', 'research-section');
+    const header = node('header', 'research-heading');
+    const number = node('span', 'research-number', String(index + 1).padStart(2, '0'));
     number.setAttribute('aria-hidden', 'true');
-    const label = node('span', 'research-tab-label', project.title);
-    const indicator = node('span', 'research-tab-indicator');
-    indicator.setAttribute('aria-hidden', 'true');
-    const titleBlock = node('span', 'research-tab-title');
-    titleBlock.append(label);
-    if (partnerName(project)) titleBlock.append(node('span', 'research-partner-note', 'Em parceria com ' + partnerName(project)));
-    button.append(number, titleBlock, indicator);
-    header.append(button);
-    const panel = node('div', 'accordion-collapse collapse research-panel' + (index === 0 ? ' show' : ''));
-    panel.id = 'research-tab-panel-' + index;
-    panel.setAttribute('role', 'region');
-    panel.setAttribute('aria-labelledby', button.id);
-    panel.append(researchProjectView(project, index));
-    panel.addEventListener('show.bs.collapse', () => tab.classList.add('is-open'));
-    panel.addEventListener('hide.bs.collapse', () => tab.classList.remove('is-open'));
-    tab.append(header, panel);
-    accordion.append(tab);
+    const title = node('h3', 'research-title', project.title);
+    title.id = 'research-title-' + index;
+    section.setAttribute('aria-labelledby', title.id);
+    header.append(number, title);
+    section.append(header, researchProjectView(project, index));
+    list.append(section);
   });
-  return accordion;
+  return list;
 }
 
 async function loadProjects() {
